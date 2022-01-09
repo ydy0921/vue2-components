@@ -5,6 +5,8 @@
 </template>
 
 <script>
+// import { departments, people } from '../components/peopleSelectTree/data'
+
 export default {
   name: 'peopleSelectTree'
 }
