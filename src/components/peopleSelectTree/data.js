@@ -1,6 +1,6 @@
 const departments = [{
   name: '顶级部门',
-  pCode: 0,
+  pCode: '0',
   code: 'dingjibumen',
   path: '0000'
 }]
@@ -81,6 +81,7 @@ for (let i = 1; i <= 1; i++) {
     }
   }
 }
+
 export default {
   departments,
   people
