@@ -4,16 +4,25 @@
               @keyup.enter.native="searchData">
     </el-input>
     <div class="tree-list" @scroll='onScrollDebounce'>
-      <c-tree-item :ids="rootIds" v-if='rootIds && rootIds.length'/>
+      <tree-item :ids="rootIds" v-if='rootIds && rootIds.length'/>
       <div v-else>未查询到相关人员</div>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
+import treeItem from './treeItem'
+
 export default {
   name: 'treeList',
   props: ['initData', 'loadItems'],
+  components: { treeItem },
+  provide () {
+    return {
+      root: this
+    }
+  },
   data () {
     return {
       searchKey: null,
@@ -22,10 +31,13 @@ export default {
         0: {
           id: '0',
           checked: 0,
-          childrenIds: this.rootIds,
+          childrenIds: [],
           status: []
         }
-      }
+      },
+      onScrollDebounce: _.debounce(this.onScroll, 200),
+      scrollTop: 0,
+      detailHeight: '1.3rem'
     }
   },
   methods: {
@@ -65,14 +77,17 @@ export default {
         // childrenIds.push(key)
       })
       // return childrenIds
+    },
+    onScroll (e) {
+      this.scrollTop = e.target.scrollTop
+      console.log(this.scrollTop)
     }
   },
   created () {
-    const initData = [...this.initData]
-    this.rootIds = initData.map(v => v.code)
-    this.getChildren('0', initData)
+    this.rootIds = this.initData.map(v => v.code)
+    this.itemsObj['0'].childrenIds = this.rootIds
+    this.getChildren('0', this.initData)
     this.itemsObj = { ...this.itemsObj }
-    // todo 根节点的childrenids为undefined
   }
 }
 </script>
@@ -84,12 +99,11 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .el-input {
-    line-height: 38px;
-
-    /deep/ .kc-input__suffix-inner {
-      margin-right: 5px;
-    }
+  > .tree-list {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+    margin-top: 16px;
   }
 }
 </style>

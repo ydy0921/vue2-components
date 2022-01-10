@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import treeList from '@/components/peopleSelectTree/treeList'
-import checkList from '@/components/peopleSelectTree/checkList'
-import { getAllDepartmentsApi, getPeopleByDepartmentApi } from '@/components/peopleSelectTree/api'
+import treeList from '../components/peopleSelectTree/treeList'
+import checkList from '../components/peopleSelectTree/checkList'
+import { getAllDepartmentsApi, getPeopleByDepartmentApi } from '../components/peopleSelectTree/api'
 
 export default {
   name: 'peopleSelectTree',
