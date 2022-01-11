@@ -76,12 +76,12 @@ export default {
   height: 600px;
 
   .left-wrapper {
-    width: 33%;
+    width: 50%;
     padding: 16px 0;
   }
 
   .right-wrapper {
-    width: 67%;
+    width: 50%;
     border-left: 1px solid #e6e6e6;
   }
 }

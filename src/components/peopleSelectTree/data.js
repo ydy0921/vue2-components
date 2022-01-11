@@ -17,7 +17,7 @@ for (let i = 1; i <= 5; i++) {
 for (let i = 1; i <= 5; i++) {
   departments.push({
     name: '一级部门' + i,
-    pCode: '0001',
+    pCode: '0002',
     code: '0001-000' + i
   })
 }
@@ -49,7 +49,7 @@ for (let i = 1; i <= 5; i++) {
   people.push({
     userName: '用户' + i,
     deptCode: '0001',
-    id: 'yonghu' + i
+    id: 'user' + i
   })
 }
 for (let i = 1; i <= 5; i++) {

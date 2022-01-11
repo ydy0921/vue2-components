@@ -63,46 +63,59 @@ export default {
       this.searchData()
     },
     getChildren (pid, items, isLeaf) {
-      // const childrenIds = []
+      const leafIds = []
       items && items.forEach(item => {
         const children = item.children && item.children.map(v => v.code)
-        const key = item.code
+        // code for department, id for user
+        const key = item.code || item.id
         const _item = this.itemsObj[key] || {
           id: key,
           name: item.name,
           checked: item.checked || 0
         }
+        // pCode for department, pid for user
         _item.pid = item.pCode || pid
         if (!isLeaf) {
+          // department
           _item.childrenIds = children || []
           // _item.code = item.code
-          // _item.leafIds = null
+          _item.leafIds = null
           // _item.searchIds = null
           _item.expand = 0
           // _item.checkedWithExcept = {}
           // _item.search_expand = 0
           item.children && this.getChildren(key, item.children, false)
         } else {
-          // _item.name = item.userName
-          // _item.deptPath = item.deptPath
+          // user
+          _item.name = item.userName
+          _item.deptCode = item.deptCode
+          // for getTitle
           // _item.personId = item.id
           // _item.userType = item.userType
         }
         this.itemsObj[key] = _item
-        // childrenIds.push(key)
+        leafIds.push(key)
       })
-      // return childrenIds
+      // for loadData
+      return leafIds
     },
     onScroll (e) {
       this.scrollTop = e.target.scrollTop
-      console.log(this.scrollTop)
     },
     getTitle (id) {
       let text = this.itemsObj[id].name
-      text += this.itemsObj[id].personId ? `（${this.itemsObj[id].personId}）` : ''
+      text += this.itemsObj[id].childrenIds ? `（${id}）` : ''
       return text
     },
     async loadData (id) {
+      if (!id || (!this.sStatus && this.itemsObj[id].leafIds)) {
+        return
+      }
+      const result = await this.loadItems(id)
+      const leafItems = this.getChildren(id, result, true)
+      this.itemsObj = { ...this.itemsObj }
+      const key = this.sStatus ? 'searchIds' : 'leafIds'
+      this.itemsObj[id][key] = leafItems
     }
   },
   created () {

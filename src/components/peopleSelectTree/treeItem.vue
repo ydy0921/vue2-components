@@ -19,6 +19,12 @@
             </template>
           </component>
         </div>
+        <!--users-->
+        <tree-item :ids="root.itemsObj[id].leafIds" :checked='root.itemsObj[id].checked'
+                   v-if="!root.sStatus && root.itemsObj[id].expand && root.itemsObj[id].leafIds && root.itemsObj[id].leafIds.length"/>
+        <!--departments-->
+        <tree-item :ids="root.itemsObj[id].childrenIds" :checked='root.itemsObj[id].checked'
+                   v-if='root.itemsObj[id][root.sStatus + "expand"] && root.itemsObj[id].childrenIds && root.itemsObj[id].childrenIds.length'/>
       </div>
       <div v-else-if="selfIdsObj[id].hideHeight" :style="{height: selfIdsObj[id].hideHeight}"
            @click.stop :ref="'r_' + id" :key="id"/>
@@ -28,11 +34,11 @@
 </template>
 
 <script>
-import highlightWord from '@/components/peopleSelectTree/highlightWord'
+import highlightWord from './highlightWord'
 
 export default {
   name: 'treeItem',
-  props: ['ids', 'noCheckBox'],
+  props: ['ids', 'noCheckBox', 'checked'],
   inject: ['root'],
   components: { highlightWord },
   data () {
@@ -42,43 +48,48 @@ export default {
     }
   },
   watch: {
-    // 'root.scrollTop': {
-    //   handler: function (top) {
-    //     this.$nextTick(() => {
-    //       const rect = this.$el.getBoundingClientRect()
-    //       if (rect.top > 1200 || rect.bottom < -100) {
-    //         this.isHideHeight = rect.height + 'px'
-    //       } else {
-    //         this.isHideHeight = ''
-    //         if (this.ids.length > 50 || this.root.itemsObj[this.ids[0]].childrenIds) {
-    //           this.$nextTick(() => {
-    //             this.ids.forEach(id => {
-    //               if (!this.$refs['r_' + id]) {
-    //                 return
-    //               }
-    //               const rect = this.$refs['r_' + id][0].getBoundingClientRect()
-    //               if (rect.top > 1200 || rect.bottom < -100) {
-    //                 this.selfIdsObj[id].hideHeight = rect.height + 'px'
-    //               } else {
-    //                 this.selfIdsObj[id].hideHeight = ''
-    //               }
-    //             })
-    //           })
-    //         }
-    //       }
-    //     })
-    //   },
-    //   deep: true,
-    //   immediate: true
-    // }
+    checked () {
+      this.resetChecks()
+    },
+    'root.scrollTop': {
+      handler: function () {
+        this.$nextTick(() => {
+          const rect = this.$el.getBoundingClientRect()
+          if (rect.top > 1200 || rect.bottom < -100) {
+            this.isHideHeight = rect.height + 'px'
+          } else {
+            this.isHideHeight = ''
+            if (this.ids.length > 50 || this.root.itemsObj[this.ids[0]].childrenIds) {
+              this.$nextTick(() => {
+                this.ids.forEach(id => {
+                  if (!this.$refs['r_' + id]) {
+                    return
+                  }
+                  const rect = this.$refs['r_' + id][0].getBoundingClientRect()
+                  if (rect.top > 1200 || rect.bottom < -100) {
+                    this.selfIdsObj[id].hideHeight = rect.height + 'px'
+                  } else {
+                    this.selfIdsObj[id].hideHeight = ''
+                  }
+                })
+              })
+            }
+          }
+        })
+      },
+      deep: true,
+      immediate: true
+    }
   },
   methods: {
     resetIds (detailHeight) {
       const idsObj = {}
       this.ids.forEach((id, i) => {
         if (this.root.itemsObj[id] && this.root.itemsObj[id].childrenIds) {
+          // departments
           idsObj[id] = { hideHeight: '' }
         } else {
+          // users
           idsObj[id] = { hideHeight: i > 50 && detailHeight ? detailHeight : '' }
         }
       })
@@ -103,6 +114,7 @@ export default {
     },
     async toggle (id) {
       if (this.selfIdsObj[id] && this.root.itemsObj[id] && this.root.itemsObj[id].childrenIds) {
+        // childrenIds for departments
         const expand = this.root.sStatus + 'expand'
         this.root.itemsObj[id][expand] = this.root.itemsObj[id][expand] ? 0 : 2
         this.root.itemsObj[id][expand] && await this.root.loadData(id)
@@ -125,60 +137,60 @@ export default {
       margin-left: 31px;
     }
   }
-}
 
-.tree-item-detail {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-
-  > span {
-    flex: 1;
+  > .tree-item-detail {
+    font-size: 14px;
     display: flex;
-    justify-self: start;
-  }
+    align-items: center;
 
-  .check-box {
-    width: 16px;
-    height: 16px;
-    margin: 0 16px 0 2px;
-    border: 1px solid #d5d8de;
-    border-radius: 2px;
-    cursor: pointer;
-
-    &.check-2 {
-      border-color: pink;
-      background-color: pink;
-      position: relative;
-
-      &::after {
-        content: "";
-        display: inline-block;
-        position: absolute;
-        width: 10px;
-        height: 5px;
-        border-style: solid;
-        border-color: #ffffff;
-        border-width: 0 0 2px 2px;
-        transform: rotate(-45deg);
-        top: 3px;
-        left: 2px;
-      }
+    > span {
+      flex: 1;
+      display: flex;
+      justify-self: start;
     }
 
-    &.check-1 {
-      position: relative;
+    .check-box {
+      width: 16px;
+      height: 16px;
+      margin: 0 16px 0 2px;
+      border: 1px solid #d5d8de;
+      border-radius: 2px;
+      cursor: pointer;
 
-      &::after {
-        content: "-";
-        display: inline-block;
-        font-size: 18px;
-        font-weight: bold;
-        line-height: 60%;
-        text-align: center;
-        width: 100%;
-        position: absolute;
-        color: pink;
+      &.check-2 {
+        border-color: pink;
+        background-color: pink;
+        position: relative;
+
+        &::after {
+          content: "";
+          display: inline-block;
+          position: absolute;
+          width: 10px;
+          height: 5px;
+          border-style: solid;
+          border-color: #ffffff;
+          border-width: 0 0 2px 2px;
+          transform: rotate(-45deg);
+          top: 3px;
+          left: 2px;
+        }
+      }
+
+      &.check-1 {
+        position: relative;
+
+        &::after {
+          content: "-";
+          display: inline-block;
+          font-size: 18px;
+          font-weight: bold;
+          line-height: 60%;
+          text-align: center;
+          width: 100%;
+          position: absolute;
+          color: pink;
+        }
       }
     }
   }
