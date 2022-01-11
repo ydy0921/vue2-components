@@ -77,11 +77,7 @@ export default {
       const idsObj = {}
       this.ids.forEach((id, i) => {
         if (this.root.itemsObj[id] && this.root.itemsObj[id].childrenIds) {
-          const total = this.root.itemsObj[id].leafIds ? this.root.itemsObj[id].leafIds.length : 0
-          idsObj[id] = {
-            currentPage: total / this.root.pageCount,
-            hideHeight: ''
-          }
+          idsObj[id] = { hideHeight: '' }
         } else {
           idsObj[id] = { hideHeight: i > 50 && detailHeight ? detailHeight : '' }
         }
@@ -106,6 +102,11 @@ export default {
       // this.root.changeSelectedObj(this.root.itemsObj[id].childrenIds, id);
     },
     async toggle (id) {
+      if (this.selfIdsObj[id] && this.root.itemsObj[id] && this.root.itemsObj[id].childrenIds) {
+        const expand = this.root.sStatus + 'expand'
+        this.root.itemsObj[id][expand] = this.root.itemsObj[id][expand] ? 0 : 2
+        this.root.itemsObj[id][expand] && await this.root.loadData(id)
+      }
     }
   },
   created () {

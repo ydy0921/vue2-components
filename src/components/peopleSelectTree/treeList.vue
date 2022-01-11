@@ -78,7 +78,7 @@ export default {
           // _item.code = item.code
           // _item.leafIds = null
           // _item.searchIds = null
-          // _item.expand = 0
+          _item.expand = 0
           // _item.checkedWithExcept = {}
           // _item.search_expand = 0
           item.children && this.getChildren(key, item.children, false)
@@ -101,6 +101,8 @@ export default {
       let text = this.itemsObj[id].name
       text += this.itemsObj[id].personId ? `（${this.itemsObj[id].personId}）` : ''
       return text
+    },
+    async loadData (id) {
     }
   },
   created () {
