@@ -49,10 +49,10 @@ function getAllPeopleByDepartmentApi (code) {
   return mockRequest(result)
 }
 
-function searchApi (name) {
+function searchApi (key) {
   const result = []
   people.forEach(i => {
-    i.userName.indexOf(name) !== -1 && result.push(i)
+    (i.userName.indexOf(key) !== -1 || i.id.indexOf(key) !== -1) && result.push(i)
   })
   return mockRequest(result)
 }

@@ -24,8 +24,10 @@ export default {
     }
   },
   data () {
+    const root = this
     return {
       searchKey: null,
+      sStatus: '',
       rootIds: [],
       itemsObj: {
         0: {
@@ -37,7 +39,20 @@ export default {
       },
       onScrollDebounce: _.debounce(this.onScroll, 200),
       scrollTop: 0,
-      detailHeight: '1.3rem'
+      detailHeight: '1.3rem',
+      renderContent: {
+        props: ['id'],
+        render () {
+          return <span class="tree-name">
+            <span title={root.getTitle(this.id)}>
+              {this.$scopedSlots.default({
+                sid: this.id,
+                searchKey: root.searchKey
+              })}
+            </span>
+          </span>
+        }
+      }
     }
   },
   methods: {
@@ -70,7 +85,7 @@ export default {
         } else {
           // _item.name = item.userName
           // _item.deptPath = item.deptPath
-          // _item.policeNum = item.policeNum
+          // _item.personId = item.id
           // _item.userType = item.userType
         }
         this.itemsObj[key] = _item
@@ -81,6 +96,11 @@ export default {
     onScroll (e) {
       this.scrollTop = e.target.scrollTop
       console.log(this.scrollTop)
+    },
+    getTitle (id) {
+      let text = this.itemsObj[id].name
+      text += this.itemsObj[id].personId ? `（${this.itemsObj[id].personId}）` : ''
+      return text
     }
   },
   created () {
