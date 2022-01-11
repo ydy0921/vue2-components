@@ -10,8 +10,8 @@
           <div v-if="!noCheckBox"
                :class="['check-box','check-' + (Object.keys(root.itemsObj[id].checkedWithExcept || {}).length ? 1 : root.itemsObj[id].checked)]"
                @click.stop="toggleCheck(id, root.itemsObj[id].checked ? 0 : 2)"/>
-          <img v-if='root.itemsObj[id].childrenIds' class="tree-icon" src="./department.png" alt=""/>
-          <img v-if='!root.itemsObj[id].childrenIds' class="tree-icon" src="./person.png" alt=""/>
+          <img v-if='root.itemsObj[id].childrenIds' class="department-icon" src="./department.png" alt=""/>
+          <img v-if='!root.itemsObj[id].childrenIds' class="person-icon" src="./person.png" alt=""/>
           <component v-if="root.renderContent" :is="root.renderContent" :id="id">
             <template slot-scope='{sid, searchKey}'>
               <highlight-word v-if="searchKey" :name="root.getTitle(sid)" :keyWord="searchKey"/>
@@ -127,7 +127,6 @@ export default {
 }
 
 .tree-item-detail {
-  line-height: 20px;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -187,10 +186,17 @@ export default {
 .tree-arrow {
   width: 16px;
   height: 16px;
-  margin-top: 3px;
 }
 
-.tree-icon {
+.department-icon {
+  width: 15px;
+  height: 13px;
+  margin-right: 6px;
+}
+
+.person-icon {
+  width: 14px;
+  height: 16px;
   margin-right: 6px;
 }
 </style>
