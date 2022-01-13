@@ -1,4 +1,4 @@
-import { departments, people } from './data.js'
+const { departments, people } = require('./data.js')
 
 const map = {}
 const data = []
@@ -20,23 +20,23 @@ for (const department of departments) {
   }
 }
 
-function getAllDepartmentsApi () {
-  return mockRequest(data)
+function getAllDepartments () {
+  return data
 }
 
-function getPeopleByDepartmentApi (code) {
-  return mockRequest(people.filter(i => i.deptCode === code))
+function getPeopleByDepartment (code) {
+  return people.filter(i => i.deptCode === code)
 }
 
-function getAllPeopleByDepartmentApi (code) {
+function getAllPeopleByDepartment (code) {
   const filterDepartments = []
   const result = [];
-  (function search (item) {
+  (function searchDepartment (item) {
     if (item) {
       filterDepartments.push(item.code)
       if (item.children && item.children.length) {
         item.children.forEach(i => {
-          search(i)
+          searchDepartment(i)
         })
       }
     }
@@ -46,28 +46,20 @@ function getAllPeopleByDepartmentApi (code) {
       result.push(person)
     }
   }
-  return mockRequest(result)
+  return result
 }
 
-function searchApi (key) {
+function search (key) {
   const result = []
   people.forEach(i => {
     (i.userName.indexOf(key) !== -1 || i.id.indexOf(key) !== -1) && result.push(i)
   })
-  return mockRequest(result)
+  return result
 }
 
-function mockRequest (data) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(data)
-    }, 500)
-  })
-}
-
-export {
-  getAllDepartmentsApi,
-  getPeopleByDepartmentApi,
-  getAllPeopleByDepartmentApi,
-  searchApi
+module.exports = {
+  getAllDepartments,
+  getPeopleByDepartment,
+  getAllPeopleByDepartment,
+  search
 }

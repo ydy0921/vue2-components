@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "node ./server/index.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "element-ui": "^2.15.6",
+    "express": "^4.17.2",
     "lodash": "^4.17.21",
     "postcss-plugin-px2rem": "^0.8.1",
     "vue": "^2.6.11",

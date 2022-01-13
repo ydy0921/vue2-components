@@ -18,7 +18,7 @@ for (let i = 1; i <= 5; i++) {
   departments.push({
     name: '一级部门' + i,
     pCode: '0002',
-    code: '0001-000' + i
+    code: '0002-000' + i
   })
 }
 for (let i = 1; i <= 4; i++) {
@@ -106,7 +106,7 @@ for (let i = 1; i <= 1; i++) {
   }
 }
 
-export {
+module.exports = {
   departments,
   people
 }
