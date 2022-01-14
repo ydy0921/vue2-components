@@ -10,8 +10,10 @@
           <div v-if="!noCheckBox"
                :class="['check-box','check-' + (Object.keys(root.itemsObj[id].checkedWithExcept || {}).length ? 1 : root.itemsObj[id].checked)]"
                @click.stop="toggleCheck(id, root.itemsObj[id].checked ? 0 : 2)"/>
-          <img v-if='root.itemsObj[id].childrenIds' class="department-icon" src="../../assets/peopleSelectTree/department.png" alt=""/>
-          <img v-if='!root.itemsObj[id].childrenIds' class="person-icon" src="../../assets/peopleSelectTree/person.png" alt=""/>
+          <img v-if='root.itemsObj[id].childrenIds' class="department-icon"
+               src="../../assets/peopleSelectTree/department.png" alt=""/>
+          <img v-if='!root.itemsObj[id].childrenIds' class="person-icon" src="../../assets/peopleSelectTree/person.png"
+               alt=""/>
           <component v-if="root.renderContent" :is="root.renderContent" :id="id">
             <template slot-scope='{sid, searchKey}'>
               <highlight-word v-if="searchKey" :name="root.getTitle(sid)" :keyWord="searchKey"/>
@@ -51,49 +53,57 @@ export default {
     checked () {
       this.resetChecks()
     },
+    ids: {
+      handler: function () {
+        this.resetIds()
+        this.resetChecks()
+      },
+      immediate: true
+    },
     'root.scrollTop': {
       handler: function () {
-        this.$nextTick(() => {
-          const rect = this.$el.getBoundingClientRect()
-          if (rect.top > 1200 || rect.bottom < -100) {
-            this.isHideHeight = rect.height + 'px'
-          } else {
-            this.isHideHeight = ''
-            if (this.ids.length > 50 || this.root.itemsObj[this.ids[0]].childrenIds) {
-              this.$nextTick(() => {
-                this.ids.forEach(id => {
-                  if (!this.$refs['r_' + id]) {
-                    return
-                  }
-                  const rect = this.$refs['r_' + id][0].getBoundingClientRect()
-                  if (rect.top > 1200 || rect.bottom < -100) {
-                    this.selfIdsObj[id].hideHeight = rect.height + 'px'
-                  } else {
-                    this.selfIdsObj[id].hideHeight = ''
-                  }
-                })
-              })
-            }
-          }
-        })
+        this.rootScroll()
       },
-      deep: true,
       immediate: true
     }
   },
   methods: {
-    resetIds (detailHeight) {
+    rootScroll () {
+      this.$nextTick(() => {
+        const rect = this.$el.getBoundingClientRect()
+        if (rect.top > 1200 || rect.bottom < -100) {
+          this.isHideHeight = rect.height + 'px'
+        } else {
+          this.isHideHeight = ''
+          this.$nextTick(() => {
+            this.ids.forEach(id => {
+              if (!this.$refs['r_' + id]) {
+                return
+              }
+              const rect = this.$refs['r_' + id][0].getBoundingClientRect()
+              if (rect.top > 1200 || rect.bottom < -100) {
+                this.selfIdsObj[id].hideHeight = rect.height + 'px'
+              } else {
+                this.selfIdsObj[id].hideHeight = ''
+              }
+            })
+          })
+        }
+      })
+    },
+    resetIds () {
       const idsObj = {}
-      this.ids.forEach((id, i) => {
+      this.ids.forEach(id => {
         if (this.root.itemsObj[id] && this.root.itemsObj[id].childrenIds) {
           // departments
           idsObj[id] = { hideHeight: '' }
         } else {
           // users
-          idsObj[id] = { hideHeight: i > 50 && detailHeight ? detailHeight : '' }
+          idsObj[id] = { hideHeight: this.root.detailHeight }
         }
       })
       this.selfIdsObj = idsObj
+      this.rootScroll()
     },
     resetChecks () {
       // const val = this.checked;
@@ -114,16 +124,12 @@ export default {
     },
     async toggle (id) {
       if (this.selfIdsObj[id] && this.root.itemsObj[id] && this.root.itemsObj[id].childrenIds) {
-        // childrenIds for departments
+        // only departments have childrenIds
         const expand = this.root.sStatus + 'expand'
         this.root.itemsObj[id][expand] = this.root.itemsObj[id][expand] ? 0 : 2
         this.root.itemsObj[id][expand] && await this.root.loadData(id)
       }
     }
-  },
-  created () {
-    this.resetIds(this.root.detailHeight)
-    this.resetChecks()
   }
 }
 </script>

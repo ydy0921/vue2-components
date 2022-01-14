@@ -78,7 +78,6 @@ export default {
         if (!isLeaf) {
           // department
           _item.childrenIds = children || []
-          // _item.code = item.code
           _item.leafIds = null
           // _item.searchIds = null
           _item.expand = 0
@@ -89,9 +88,6 @@ export default {
           // user
           _item.name = item.userName
           _item.deptCode = item.deptCode
-          // for getTitle
-          // _item.personId = item.id
-          // _item.userType = item.userType
         }
         this.itemsObj[key] = _item
         leafIds.push(key)
@@ -109,11 +105,11 @@ export default {
       if (!id || (!this.sStatus && this.itemsObj[id].leafIds)) {
         return
       }
-      const result = (await this.loadItems(id)).result
-      const leafItems = this.getChildren(id, result, true)
+      const result = await this.loadItems(id)
+      const items = this.getChildren(id, result, true)
       this.itemsObj = { ...this.itemsObj }
       const key = this.sStatus ? 'searchIds' : 'leafIds'
-      this.itemsObj[id][key] = leafItems
+      this.itemsObj[id][key] = items
     }
   },
   created () {

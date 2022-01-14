@@ -9,7 +9,11 @@ module.exports = {
   },
   // postcss-plugin-px2rem
   lintOnSave: true,
+  configureWebpack: (config) => {
+    config.devtool = 'source-map'
+  },
   css: {
+    sourceMap: true,
     loaderOptions: {
       postcss: {
         plugins: [
