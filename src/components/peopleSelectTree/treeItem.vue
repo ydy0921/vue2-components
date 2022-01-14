@@ -10,8 +10,8 @@
           <div v-if="!noCheckBox"
                :class="['check-box','check-' + (Object.keys(root.itemsObj[id].checkedWithExcept || {}).length ? 1 : root.itemsObj[id].checked)]"
                @click.stop="toggleCheck(id, root.itemsObj[id].checked ? 0 : 2)"/>
-          <img v-if='root.itemsObj[id].childrenIds' class="department-icon" src="./department.png" alt=""/>
-          <img v-if='!root.itemsObj[id].childrenIds' class="person-icon" src="./person.png" alt=""/>
+          <img v-if='root.itemsObj[id].childrenIds' class="department-icon" src="../../assets/peopleSelectTree/department.png" alt=""/>
+          <img v-if='!root.itemsObj[id].childrenIds' class="person-icon" src="../../assets/peopleSelectTree/person.png" alt=""/>
           <component v-if="root.renderContent" :is="root.renderContent" :id="id">
             <template slot-scope='{sid, searchKey}'>
               <highlight-word v-if="searchKey" :name="root.getTitle(sid)" :keyWord="searchKey"/>

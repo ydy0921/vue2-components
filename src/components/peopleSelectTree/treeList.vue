@@ -103,15 +103,13 @@ export default {
       this.scrollTop = e.target.scrollTop
     },
     getTitle (id) {
-      let text = this.itemsObj[id].name
-      text += this.itemsObj[id].childrenIds ? `（${id}）` : ''
-      return text
+      return this.itemsObj[id].name + (this.itemsObj[id].childrenIds ? '' : `（${id}）`)
     },
     async loadData (id) {
       if (!id || (!this.sStatus && this.itemsObj[id].leafIds)) {
         return
       }
-      const result = await this.loadItems(id)
+      const result = (await this.loadItems(id)).result
       const leafItems = this.getChildren(id, result, true)
       this.itemsObj = { ...this.itemsObj }
       const key = this.sStatus ? 'searchIds' : 'leafIds'

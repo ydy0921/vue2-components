@@ -5,10 +5,10 @@
     <el-dialog title="选择人员" width="60%" :visible="dialogVisible" :before-close="handleClose">
       <div class="select-people-wrapper">
         <div class="left-wrapper">
-          <tree-list ref='treeList' :initData="initDeptData" :loadItems='getDeptPeople'/>
+          <tree-list v-if="dialogVisible" ref='treeList' :initData="initDeptData" :loadItems='getDeptPeople'/>
         </div>
         <div class="right-wrapper">
-          <check-list @getChooseData="getChooseData" @onEmpty="resetTree"/>
+          <check-list v-if="dialogVisible" @getChooseData="getChooseData" @onEmpty="resetTree"/>
         </div>
       </div>
       <template slot='footer'>
@@ -22,7 +22,7 @@
 <script>
 import treeList from '../components/peopleSelectTree/treeList'
 import checkList from '../components/peopleSelectTree/checkList'
-import { getAllDepartmentsApi, getPeopleByDepartmentApi } from '../components/peopleSelectTree/api'
+import { getAllDepartmentsApi, getPeopleByDepartmentApi } from '@/service/peopleSelectTree'
 
 export default {
   name: 'peopleSelectTree',
@@ -46,10 +46,10 @@ export default {
       this.dialogVisible = false
     },
     async getDepartments () {
-      this.initDeptData = await getAllDepartmentsApi()
+      this.initDeptData = (await getAllDepartmentsApi()).result
     },
     async getDeptPeople (code) {
-      return (await getPeopleByDepartmentApi(code))
+      return (await getPeopleByDepartmentApi(code)).result
     },
     getChooseData (v) {
       this.chooseData = v
