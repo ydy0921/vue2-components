@@ -1,7 +1,8 @@
 const express = require('express')
-const peopleSelectTreeController = require('./peopleSelectTree/controller')
+const { controller: peopleSelectTreeController } = require('./peopleSelectTree/controller')
+const { controller: taskWeekCalendarController } = require('./taskWeekCalendar/controller')
 
-const controllers = { ...peopleSelectTreeController }
+const controllers = { ...peopleSelectTreeController, ...taskWeekCalendarController }
 
 const app = express()
 

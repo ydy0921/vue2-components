@@ -21,7 +21,7 @@
             </template>
           </component>
         </div>
-        <!--users-->
+        <!--people-->
         <tree-item :ids="root.itemsObj[id].leafIds" :checked='root.itemsObj[id].checked'
                    v-if="!root.sStatus && root.itemsObj[id].expand && root.itemsObj[id].leafIds && root.itemsObj[id].leafIds.length"/>
         <!--departments-->
@@ -98,7 +98,7 @@ export default {
           // departments
           idsObj[id] = { hideHeight: '' }
         } else {
-          // users
+          // people
           idsObj[id] = { hideHeight: this.root.detailHeight }
         }
       })

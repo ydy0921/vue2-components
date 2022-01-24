@@ -1,17 +1,17 @@
 import axios from './index'
 
 export const getAllDepartmentsApi = () => {
-  return axios.send('/department/all', 'get')
+  return axios.send('/peopleSelectTree/getAllDepartments', 'get')
 }
 
 export const getPeopleByDepartmentApi = code => {
-  return axios.send('/people/getByDepartment/' + code, 'get')
+  return axios.send('/peopleSelectTree/getPeopleByDepartment/' + code, 'get')
 }
 
 export const getAllPeopleByDepartmentApi = code => {
-  return axios.send('/people/getAllByDepartment/' + code, 'get')
+  return axios.send('/peopleSelectTree/getAllPeopleByDepartment/' + code, 'get')
 }
 
 export const Api = key => {
-  return axios.send('/people/search/' + key, 'get')
+  return axios.send('/peopleSelectTree/search/' + key, 'get')
 }

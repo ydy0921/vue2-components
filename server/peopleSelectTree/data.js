@@ -47,33 +47,33 @@ for (let i = 1; i <= 3; i++) {
 const people = []
 for (let i = 1; i <= 5; i++) {
   people.push({
-    userName: '用户' + i,
+    personName: '用户' + i,
     deptCode: '0001',
-    id: 'user' + i
+    id: 'person' + i
   })
 }
 for (let i = 1; i <= 5; i++) {
   people.push({
-    userName: '用户' + i,
+    personName: '用户' + i,
     deptCode: '0002',
-    id: 'user' + i
+    id: 'person' + i
   })
 }
 for (let i = 1; i <= 4; i++) {
   for (let j = 1; j <= 5; j++) {
     people.push({
-      userName: '用户' + i + j,
+      personName: '用户' + i + j,
       deptCode: '0001-000' + i,
-      id: 'user' + i + j
+      id: 'person' + i + j
     })
   }
 }
 for (let i = 1; i <= 4; i++) {
   for (let j = 1; j <= 5; j++) {
     people.push({
-      userName: '用户' + i + j,
+      personName: '用户' + i + j,
       deptCode: '0002-000' + i,
-      id: 'user' + i + j
+      id: 'person' + i + j
     })
   }
 }
@@ -82,9 +82,9 @@ for (let i = 1; i <= 3; i++) {
     for (let k = 1; k <= 5; k++) {
       people.push(
         {
-          userName: '用户' + i + j + k,
+          personName: '用户' + i + j + k,
           deptCode: '0001-000' + i + '-000' + j,
-          id: 'user' + i + j + k
+          id: 'person' + i + j + k
         }
       )
     }
@@ -96,9 +96,9 @@ for (let i = 1; i <= 1; i++) {
       for (let l = 1; l <= 5; l++) {
         people.push(
           {
-            userName: '用户' + i + j + k + l,
+            personName: '用户' + i + j + k + l,
             deptCode: '0001-000' + i + '-000' + j + '-000' + l,
-            id: 'user' + i + j + k + l
+            id: 'person' + i + j + k + l
           }
         )
       }

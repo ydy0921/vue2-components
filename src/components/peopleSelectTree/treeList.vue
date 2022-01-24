@@ -66,14 +66,14 @@ export default {
       const leafIds = []
       items && items.forEach(item => {
         const children = item.children && item.children.map(v => v.code)
-        // code for department, id for user
+        // code for department, id for people
         const key = item.code || item.id
         const _item = this.itemsObj[key] || {
           id: key,
           name: item.name,
           checked: item.checked || 0
         }
-        // pCode for department, pid for user
+        // pCode for department, pid for people
         _item.pid = item.pCode || pid
         if (!isLeaf) {
           // department
@@ -85,8 +85,8 @@ export default {
           // _item.search_expand = 0
           item.children && this.getChildren(key, item.children, false)
         } else {
-          // user
-          _item.name = item.userName
+          // people
+          _item.name = item.personName
           _item.deptCode = item.deptCode
         }
         this.itemsObj[key] = _item

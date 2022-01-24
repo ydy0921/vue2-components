@@ -1,4 +1,4 @@
-const { departments, people } = require('./data.js')
+const { departments, people } = require('./data')
 
 const map = {}
 const data = []
@@ -52,7 +52,7 @@ function getAllPeopleByDepartment (code) {
 function search (key) {
   const result = []
   people.forEach(i => {
-    (i.userName.indexOf(key) !== -1 || i.id.indexOf(key) !== -1) && result.push(i)
+    (i.personName.indexOf(key) !== -1 || i.id.indexOf(key) !== -1) && result.push(i)
   })
   return result
 }
