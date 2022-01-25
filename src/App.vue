@@ -16,3 +16,10 @@ export default {
   }
 }
 </script>
+
+<style>
+body {
+  min-width: 1280PX;
+  min-height: 600PX;
+}
+</style>
