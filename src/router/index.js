@@ -8,6 +8,11 @@ const routes = [
     path: '/peopleSelectTree',
     name: 'peopleSelectTree',
     component: () => import('../views/peopleSelectTree')
+  },
+  {
+    path: '/taskWeekCalendar',
+    name: 'taskWeekCalendar',
+    component: () => import('../views/taskWeekCalendar')
   }
 ]
 
