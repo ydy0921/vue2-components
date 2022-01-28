@@ -15,16 +15,23 @@
       </div>
       <div class="day-task-wrapper">
         <div v-for="i of 7" :key="i">
+          <task-wrapper :taskData="weekData[week[i - 1] + 'Data']"/>
         </div>
       </div>
     </div>
-    <div class="bottom-line"></div>
+    <div class="bottom-line"/>
   </div>
 </template>
 
 <script>
+import taskWrapper from '../../components/taskWeekCalendar/taskWrapper'
+
 export default {
   name: 'background',
+  components: {
+    taskWrapper
+  },
+  props: ['weekData'],
   data () {
     return {
       week: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
