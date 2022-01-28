@@ -20,7 +20,7 @@ export default {
 
 <style scoped lang="scss">
 .task-week-calendar-wrapper {
-  width: 80%;
+  width: 90%;
   height: 800px;
   margin: 50px auto;
 }

@@ -18,6 +18,7 @@
         </div>
       </div>
     </div>
+    <div class="bottom-line"></div>
   </div>
 </template>
 
@@ -45,17 +46,15 @@ div, /deep/ div {
   width: 100%;
   height: 100%;
   overflow: hidden;
-
-  > div {
-    width: 100%;
-    padding-right: 10px;
-    display: flex;
-  }
+  position: relative;
 
   .header {
     height: 60px;
+    width: 100%;
+    padding-right: 12px;
     background: #f0f5ff;
     background-clip: content-box;
+    display: flex;
 
     > div:not(:first-child) {
       height: 100%;
@@ -81,9 +80,12 @@ div, /deep/ div {
 
   .content {
     flex: 1;
+    width: 100%;
     height: 100%;
-    overflow-y: overlay;
+    overflow-y: auto;
     position: relative;
+    display: flex;
+    padding-right: 4px;
 
     .time-line-wrapper {
       height: 1500px;
@@ -113,7 +115,7 @@ div, /deep/ div {
     }
 
     .day-task-wrapper {
-      width: calc(100% - 78px);
+      width: calc(100% - 72px);
       height: 1500px;
       position: absolute;
       left: 68px;
@@ -131,6 +133,14 @@ div, /deep/ div {
         background-color: rgba(240, 245, 255, 0.5);
       }
     }
+  }
+
+  .bottom-line {
+    border-top: 1px solid #e0e2e8;
+    width: calc(100% - 12px);
+    height: 1px;
+    position: absolute;
+    bottom: 0;
   }
 }
 </style>
