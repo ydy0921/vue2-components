@@ -13,7 +13,9 @@
       <div class="row-line-wrapper">
         <div v-for="i of 25" :key="i"/>
       </div>
-      <div class="day-calendar-wrapper">
+      <div class="day-task-wrapper">
+        <div v-for="i of 7" :key="i">
+        </div>
       </div>
     </div>
   </div>
@@ -46,14 +48,14 @@ div, /deep/ div {
 
   > div {
     width: 100%;
-    background-clip: content-box !important;
     padding-right: 10px;
+    display: flex;
   }
 
   .header {
     height: 60px;
     background: #f0f5ff;
-    display: flex;
+    background-clip: content-box;
 
     > div:not(:first-child) {
       height: 100%;
@@ -81,7 +83,6 @@ div, /deep/ div {
     flex: 1;
     height: 100%;
     overflow-y: overlay;
-    display: flex;
     position: relative;
 
     .time-line-wrapper {
@@ -108,6 +109,26 @@ div, /deep/ div {
       > div {
         border-bottom: 1px solid #e0e2e8;
         height: 60px;
+      }
+    }
+
+    .day-task-wrapper {
+      width: calc(100% - 78px);
+      height: 1500px;
+      position: absolute;
+      left: 68px;
+      display: flex;
+
+      > div {
+        flex: 1;
+        height: calc(100% - 1px);
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-right: 1px;
+      }
+
+      > :hover {
+        background-color: rgba(240, 245, 255, 0.5);
       }
     }
   }
