@@ -3,9 +3,21 @@
 </template>
 
 <script>
+import { arrange } from '@/components/taskWeekCalendar/arrange'
+
 export default {
   name: 'taskWrapper',
-  props: ['taskData']
+  props: ['taskData'],
+  watch: {
+    taskData (n) {
+      this.arrangeData = arrange(n)
+    }
+  },
+  data () {
+    return {
+      arrangeData: []
+    }
+  }
 }
 </script>
 
