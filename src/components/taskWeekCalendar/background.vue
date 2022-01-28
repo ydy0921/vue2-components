@@ -130,7 +130,7 @@ div, /deep/ div {
 
       > div {
         flex: 1;
-        height: calc(100% - 1px);
+        height: 100%;
         padding-left: 8px;
         padding-right: 8px;
         margin-right: 1px;
