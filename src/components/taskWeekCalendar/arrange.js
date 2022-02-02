@@ -1,5 +1,3 @@
-import de from 'element-ui/src/locale/lang/de'
-
 function timeToNumber (time) {
   const a = time.split(':')
   return Number(a[0]) * 60 + Number(a[1])

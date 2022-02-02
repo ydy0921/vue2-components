@@ -15,7 +15,7 @@
       </div>
       <div class="day-task-wrapper">
         <div v-for="i of 7" :key="i">
-          <task-wrapper :taskData="weekData[week[i - 1] + 'Data']"/>
+          <day-wrapper :taskData="weekData[week[i - 1] + 'Data']"/>
         </div>
       </div>
     </div>
@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import taskWrapper from '../../components/taskWeekCalendar/taskWrapper'
+import dayWrapper from './dayWrapper'
 
 export default {
   name: 'background',
   components: {
-    taskWrapper
+    dayWrapper
   },
   props: ['weekData'],
   data () {
@@ -131,8 +131,8 @@ div, /deep/ div {
       > div {
         flex: 1;
         height: 100%;
-        padding-left: 8px;
-        padding-right: 8px;
+        padding-left: 4px;
+        padding-right: 4px;
         margin-right: 1px;
       }
 

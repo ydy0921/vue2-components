@@ -1,11 +1,11 @@
 const MondayData = [
   { name: '1', startTime: '14:30', endTime: '15:00' },
-  { name: '2', startTime: '15:30', endTime: '16:00' }
+  { name: '2', startTime: '14:30', endTime: '16:00' }
 ]
 
 const TuesdayData = [
   { name: '1', startTime: '14:30', endTime: '15:00' },
-  { name: '2', startTime: '15:30', endTime: '16:00' }
+  { name: '2', startTime: '15:00', endTime: '16:00' }
 ]
 
 const WednesdayData = [
