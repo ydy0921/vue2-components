@@ -15,7 +15,7 @@
       </div>
       <div class="day-task-wrapper">
         <div v-for="i of 7" :key="i">
-          <day-wrapper :taskData="weekData[week[i - 1] + 'Data']"/>
+          <day-wrapper :taskData="weekData[week[i - 1] + 'Data']" :week="week[i - 1]"/>
         </div>
       </div>
     </div>

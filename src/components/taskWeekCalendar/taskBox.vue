@@ -1,40 +1,56 @@
 <template>
-  <div id="task-box" :class="getBoxColor()" :title="taskData.startTime + '-' + taskData.endTime">
+  <div v-if="taskData.hiddenData && taskData.hiddenData.length > 0" style="height: 100%">
+    <el-tooltip :effect="'light task-slide-wrapper' + (isExpired ? ' grey-wrapper' : '')" placement="right-start">
+      <div :class="'task-box' + (isExpired ? ' grey-box' : ' pink-box')">
+        <div class="content">+{{ taskData.hiddenData.length }}</div>
+      </div>
+      <slide-box slot="content" :hiddenData="taskData.hiddenData" :isExpired="isExpired"/>
+    </el-tooltip>
+  </div>
+  <div v-else class="task-box" :class="getBoxColor()" :title="taskData.startTime + '-' + taskData.endTime">
     <div class="content">{{ taskData.name }}</div>
   </div>
 </template>
 
 <script>
+import slideBox from './slideBox'
+
 export default {
   name: 'taskBox',
   props: ['taskData'],
+  components: {
+    slideBox
+  },
   methods: {
     getBoxColor () {
-      // get a random number from 1 to 4
-      const index = Math.floor(Math.random() * 4) + 1
-      let color
-      switch (index) {
-        case 1:
-          color = 'yellow'
-          break
-        case 2:
-          color = 'blue'
-          break
-        case 3:
-          color = 'grey'
-          break
-        case 4:
-          color = 'pink'
-          break
+      if (this.isExpired) {
+        return 'grey-box'
+      } else {
+        // get a random number from 1 to 2
+        const index = Math.floor(Math.random() * 2) + 1
+        let color
+        switch (index) {
+          case 1:
+            color = 'yellow'
+            break
+          case 2:
+            color = 'blue'
+            break
+        }
+        return color + '-box'
       }
-      return color + '-box'
+    }
+  },
+  computed: {
+    isExpired () {
+      return false
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-#task-box {
+.task-box {
   width: 100%;
   height: 100%;
   border-radius: 4px;
@@ -82,5 +98,24 @@ export default {
 
 .content {
   font-size: 14px;
+}
+</style>
+
+<style lang="scss">
+.task-slide-wrapper {
+  width: 58px !important;
+  border-radius: 8px;
+  padding: 0 !important;
+  background: #fffdfd !important;
+  border: 1px solid #ffccc7 !important;
+
+  .popper__arrow {
+    display: none !important;
+  }
+}
+
+.grey-wrapper {
+  background: #fbfcff !important;
+  border: 1px solid #e0e2e8 !important;
 }
 </style>

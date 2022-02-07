@@ -18,19 +18,17 @@ function testTimeCollisions (od, ranges) {
 function arrangeColumn (data, od) {
   for (const [index, datum] of data.entries()) {
     if (!testTimeCollision(od, [datum[datum.length - 1].s, datum[datum.length - 1].e])) {
-      if (datum.length >= 1) {
-        for (let i = index + 1; i < data.length; i++) {
-          if (testTimeCollision(data[i][data[i].length - 1], [od.s, od.e])) {
-            break
-          } else {
-            od.w++
-          }
+      for (let i = index + 1; i < data.length; i++) {
+        if (testTimeCollision(data[i][data[i].length - 1], [od.s, od.e])) {
+          break
+        } else {
+          od.w++
         }
-        if (index > 0) {
-          const ood = data[index - 1][data[index - 1].length - 1]
-          if (ood && testTimeCollision(ood, [od.s, od.e])) {
-            ood.w = 1
-          }
+      }
+      if (index > 0) {
+        const ood = data[index - 1][data[index - 1].length - 1]
+        if (ood && testTimeCollision(ood, [od.s, od.e])) {
+          ood.w = 1
         }
       }
       datum.push(od)
@@ -40,7 +38,7 @@ function arrangeColumn (data, od) {
   data.push([od])
 }
 
-export const arrange = function (data) {
+export const arrange = function (data, showHidden = true) {
   if (data && data.length) {
     const originData = data.map(i => ({
       ...i,
@@ -63,6 +61,37 @@ export const arrange = function (data) {
         timeZone.push([od.s, od.e])
       }
     })
+    if (showHidden) {
+      for (const result of resultData) {
+        if (result.length > 5) {
+          const hiddenData = []
+          let e = 0
+          const i = result.length - 1
+          for (let j = 4; j <= i; j++) {
+            hiddenData.push(...result[j])
+            for (const resultElement of result[j]) {
+              resultElement.e > e && (e = resultElement.e)
+            }
+          }
+          hiddenData.sort((a, b) => a.s - b.s)
+          result.length = 4
+          for (let l = 3; l >= 0; l--) {
+            for (const resultElement of result[l]) {
+              if (resultElement.w > 1 && resultElement.w + l - 1 > 3) {
+                resultElement.w = 4 - l
+              }
+            }
+          }
+          result.push([{
+            s: hiddenData[0].s,
+            e: e,
+            d: e - hiddenData[0].s,
+            w: 1,
+            hiddenData: hiddenData
+          }])
+        }
+      }
+    }
     return resultData
   } else {
     return []

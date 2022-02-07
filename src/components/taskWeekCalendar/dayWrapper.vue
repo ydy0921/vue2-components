@@ -19,13 +19,13 @@ import taskBox from './taskBox'
 
 export default {
   name: 'taskWrapper',
-  props: ['taskData'],
+  props: ['taskData', 'week'],
   components: {
     taskBox
   },
   watch: {
     taskData (n) {
-      this.arrangeData = arrange(n)
+      this.arrangeData = arrange(n, this.week === 'Sunday')
     }
   },
   data () {

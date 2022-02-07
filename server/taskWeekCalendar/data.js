@@ -29,7 +29,9 @@ const MondayData = [
   { name: '5-9', startTime: '09:00', endTime: '09:30' }
 ]
 
-const TuesdayData = [
+const TuesdayData = []
+
+const WednesdayData = [
   { name: '1-1', startTime: '00:30', endTime: '01:00' },
   { name: '1-2', startTime: '00:30', endTime: '01:00' },
   { name: '1-3', startTime: '00:30', endTime: '01:00' },
@@ -65,7 +67,9 @@ const TuesdayData = [
   { name: '3-12', startTime: '07:30', endTime: '08:00' }
 ]
 
-const WednesdayData = [
+const ThursdayData = []
+
+const FridayData = [
   { name: '1-1', startTime: '00:30', endTime: '03:00' },
   { name: '1-2', startTime: '00:30', endTime: '01:00' },
   { name: '1-3', startTime: '00:30', endTime: '01:00' },
@@ -106,22 +110,10 @@ const WednesdayData = [
   { name: '2-22', startTime: '06:00', endTime: '06:30' }
 ]
 
-const ThursdayData = []
-
-const FridayData = [
-  { name: '1', startTime: '14:30', endTime: '15:00' },
-  { name: '2', startTime: '15:30', endTime: '16:00' }
-]
-
 const SaturdayData = [
-  { name: '1', startTime: '14:30', endTime: '15:00' },
-  { name: '2', startTime: '15:30', endTime: '16:00' }
 ]
 
-const SundayData = [
-  { name: '1', startTime: '14:30', endTime: '15:00' },
-  { name: '2', startTime: '15:30', endTime: '16:00' }
-]
+const SundayData = FridayData
 
 const weekData = {
   MondayData,
