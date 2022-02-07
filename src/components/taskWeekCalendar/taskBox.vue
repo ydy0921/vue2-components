@@ -1,5 +1,7 @@
 <template>
-  <div id="task-box" :class="getBoxColor()"></div>
+  <div id="task-box" :class="getBoxColor()" :title="taskData.startTime + '-' + taskData.endTime">
+    <div class="content">{{ taskData.name }}</div>
+  </div>
 </template>
 
 <script>
@@ -37,6 +39,9 @@ export default {
   height: 100%;
   border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .blue-box {
@@ -73,5 +78,9 @@ export default {
   &:hover {
     background: rgba(236, 239, 241, 1);
   }
+}
+
+.content {
+  font-size: 14px;
 }
 </style>
