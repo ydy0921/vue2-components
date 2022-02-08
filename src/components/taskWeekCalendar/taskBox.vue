@@ -108,6 +108,7 @@ export default {
   padding: 0 !important;
   background: #fffdfd !important;
   border: 1px solid #ffccc7 !important;
+  overflow: hidden;
 
   .popper__arrow {
     display: none !important;

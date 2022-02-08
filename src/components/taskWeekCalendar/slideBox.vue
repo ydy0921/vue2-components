@@ -55,7 +55,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px 8px 0 0;
   cursor: pointer;
 }
 
@@ -66,7 +65,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0 0 8px 8px;
   cursor: pointer;
 }
 
