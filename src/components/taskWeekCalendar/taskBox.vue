@@ -26,17 +26,18 @@ export default {
       if (this.isExpired) {
         return 'grey-box'
       } else {
-        // get a random number from 1 to 2
-        const index = Math.floor(Math.random() * 2) + 1
-        let color
-        switch (index) {
-          case 1:
-            color = 'yellow'
-            break
-          case 2:
-            color = 'blue'
-            break
-        }
+        // // get a random number from 1 to 2
+        // const index = Math.floor(Math.random() * 2) + 1
+        // let color
+        // switch (index) {
+        //   case 1:
+        //     color = 'yellow'
+        //     break
+        //   case 2:
+        //     color = 'blue'
+        //     break
+        // }
+        const color = this.taskData.w > 1 ? 'yellow' : 'blue'
         return color + '-box'
       }
     }
