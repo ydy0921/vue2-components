@@ -110,8 +110,7 @@ const FridayData = [
   { name: '2-22', startTime: '06:00', endTime: '06:30' }
 ]
 
-const SaturdayData = [
-]
+const SaturdayData = []
 
 const SundayData = FridayData
 

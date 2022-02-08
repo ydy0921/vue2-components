@@ -112,8 +112,14 @@ export const arrange = function (data, showHidden = true) {
           // change the weight of the tasks of the first four columns if need
           for (let l = 3; l >= 0; l--) {
             for (const task of group[l]) {
+              // test if the number of the last column the task takes up is greater than 4
               if (task.w > 1 && task.w + l - 1 > 3) {
-                task.w = 4 - l
+                // test if the task and the only task of the fifth column have a time overlap
+                if (!testTimeOverlap(task, [hiddenData[0].s, e])) {
+                  task.w = 5 - l
+                } else {
+                  task.w = 4 - l
+                }
               }
             }
           }
