@@ -18,7 +18,6 @@ const MondayData = [
 	{ name: '4-7', startTime: '06:00', endTime: '06:30' },
 	{ name: '4-8', startTime: '06:00', endTime: '06:30' },
 	{ name: '4-9', startTime: '06:30', endTime: '07:00' },
-	{ name: '4-10', startTime: '06:30', endTime: '07:00' },
 	{ name: '5-1', startTime: '07:30', endTime: '08:00' },
 	{ name: '5-2', startTime: '07:30', endTime: '08:00' },
 	{ name: '5-3', startTime: '07:30', endTime: '08:30' },
