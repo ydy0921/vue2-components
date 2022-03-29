@@ -102,8 +102,7 @@ export const arrange = function (data, showHidden = true) {
 					const hiddenData = []
 					// end time of the only task in fifth column
 					let e = 0
-					const i = group.length - 1
-					for (let j = 4; j <= i; j++) {
+					for (let j = 4; j < group.length; j++) {
 						for (const task of group[j]) {
 							// push the extra tasks into the hidden data
 							hiddenData.push(task)
@@ -132,10 +131,10 @@ export const arrange = function (data, showHidden = true) {
 					// push the only task into fifth column
 					group.push([{
 						s: hiddenData[0].s,
-						e: e,
+						e,
 						d: e - hiddenData[0].s,
 						w: 1,
-						hiddenData: hiddenData
+						hiddenData
 					}])
 				}
 			}
